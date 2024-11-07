@@ -4,8 +4,10 @@ import re
 import httpx
 import logging
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Configure logging level based on environment variable
+log_level = os.getenv("LOG_LEVEL", "WARNING").upper()
+numeric_level = getattr(logging, log_level, logging.WARNING)
+logging.basicConfig(level=numeric_level)
 
 def api_call_handler(func):
     def wrapper(*args, **kwargs):
